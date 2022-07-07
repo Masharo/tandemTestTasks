@@ -31,41 +31,11 @@ public class Task1Impl implements IStringRowsListSorter {
 
     private Task1Impl() {}
 
-    private comporator = (dLeft, dRight) -> {
-        if (dLeft.firstItemIsInt && dRight.firstItemIsInt) { // Совпадают ли позиции интов и строк в срапвниваемых объектах
-            for (int i = 0; i < dLeft.substrings.length; i++) {
-                if ((i % 2 == 0) == dLeft.firstItemIsInt) { // Обрабатываем как Int
-                    int dLeftInt = Integer.parseInt(dLeft.substrings[i]);
-                    int dRightInt = Integer.parseInt(dRight.substrings[i]);
-
-                    if (dLeftInt != dRightInt) {
-                        return Integer.compare(dLeftInt, dRightInt);
-                    }
-                } else {
-                    int compareString = dLeft.substrings[i].compareTo(dRight.substrings[i]);
-                    if (compareString != 0) {
-                        return compareString;
-                    }
-                }
-            }
-        } else {
-
-            for (int i = 0; i < dLeft.substrings.length; i++) {
-                int compareString = dLeft.substrings[i].compareTo(dRight.substrings[i]);
-                if (compareString != 0) {
-                    return compareString;
-                }
-            }
-        }
-
-        return 0;
-    };
-
     @Override
     public void sort(final List<String[]> rows, final int columnIndex) {
-        List<Decompose> listSort = new ArrayList<>();
-        List<String[]> indexEmpty = new ArrayList<>();
-        List<String[]> indexNull = new ArrayList<>();
+        final List<Decompose> listSort = new ArrayList<>();
+        final List<String[]> indexEmpty = new ArrayList<>();
+        final List<String[]> indexNull = new ArrayList<>();
 
         for (String[] row : rows) {
             String item = row[columnIndex];
@@ -79,7 +49,7 @@ public class Task1Impl implements IStringRowsListSorter {
             }
         }
 
-        listSort.sort();
+        sortValidItems(listSort);
 
         for (int i = 0; i < indexNull.size(); i++) {
             rows.set(i, indexNull.get(i));
@@ -96,17 +66,65 @@ public class Task1Impl implements IStringRowsListSorter {
 
     }
 
+    /**
+     * Сортировка значений, без null и empty.
+      * @param listSort
+     */
+    private void sortValidItems(List<Decompose> listSort) {
+        listSort.sort((dLeft, dRight) -> {
+            if (dLeft.firstItemIsInt && dRight.firstItemIsInt) { // Совпадают ли позиции интов и строк в срапвниваемых объектах
+                for (int i = 0; i < dLeft.substrings.length; i++) {
+                    if ((i % 2 == 0) == dLeft.firstItemIsInt) { // Обрабатываем как Int
+                        int dLeftInt = Integer.parseInt(dLeft.substrings[i]);
+                        int dRightInt = Integer.parseInt(dRight.substrings[i]);
+
+                        if (dLeftInt != dRightInt) {
+                            return Integer.compare(dLeftInt, dRightInt);
+                        }
+                    } else {
+                        int compareString = dLeft.substrings[i].compareTo(dRight.substrings[i]);
+                        if (compareString != 0) {
+                            return compareString;
+                        }
+                    }
+                }
+            } else {
+
+                for (int i = 0; i < dLeft.substrings.length; i++) {
+                    int compareString = dLeft.substrings[i].compareTo(dRight.substrings[i]);
+                    if (compareString != 0) {
+                        return compareString;
+                    }
+                }
+            }
+
+            return 0;
+        });
+    }
+
+    /**
+     * @param substrings битая строка
+     * @param firstItemIsInt является ли 1 элемент числом
+     * @param row исходная строка
+     */
     private record Decompose(String[] substrings, boolean firstItemIsInt, String[] row) {}
 
+    /**
+     * Разбиваем строку на подстроки, и определяем является ли 1 подстрока
+     * числом.
+     * @param strings
+     * @param index
+     * @return Decompose
+     */
     private Decompose stringDecompose(String[] strings, int index) { // делаем из строки массив
 
         boolean firstItemIsInt = false;
-        String str = strings[index];
+        final String str = strings[index];
 
-        Pattern pattern = Pattern.compile("(\\d*\\d)|(\\D*\\D)");
-        Matcher matcher = pattern.matcher(str);
+        final Pattern pattern = Pattern.compile("(\\d*\\d)|(\\D*\\D)");
+        final Matcher matcher = pattern.matcher(str);
 
-        List<String> result = new ArrayList<>();
+        final List<String> result = new ArrayList<>();
 
         if (matcher.find()) {
             result.add(matcher.group(0));
