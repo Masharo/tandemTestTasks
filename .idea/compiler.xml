@@ -9,5 +9,12 @@
         <module name="tandemTestTasks" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="17" />
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="--enable-preview" />
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="tandemTestTasks" options="" />
+    </option>
   </component>
 </project>

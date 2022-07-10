@@ -1,3 +1,3 @@
 package com.masharo.tandemTestTasks.game.model;
 
-public record RegistrationParam() {}
+public record RegistrationParam(String name) {}
