@@ -8,8 +8,6 @@ import com.masharo.tandemTestTasks.game.usecase.AuthUserUseCase;
 import com.masharo.tandemTestTasks.game.usecase.RegistrationUserUseCase;
 import com.masharo.tandemTestTasks.game.usecase.SendWordUseCase;
 
-import java.util.List;
-
 public class Game {
 
     private SendWordUseCase sendWordUseCase;

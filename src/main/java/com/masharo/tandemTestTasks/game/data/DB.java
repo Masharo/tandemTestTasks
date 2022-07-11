@@ -1,4 +1,4 @@
-package com.masharo.tandemTestTasks.game;
+package com.masharo.tandemTestTasks.game.data;
 
 import com.masharo.tandemTestTasks.game.model.User;
 import com.masharo.tandemTestTasks.game.model.Word;

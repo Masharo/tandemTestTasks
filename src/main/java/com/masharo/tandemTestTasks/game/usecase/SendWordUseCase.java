@@ -7,6 +7,10 @@ import com.masharo.tandemTestTasks.game.model.result.FailureParam;
 import com.masharo.tandemTestTasks.game.model.result.Result;
 import com.masharo.tandemTestTasks.game.repository.PalindromeRepository;
 
+/**
+ * Тут находится реализация логики игры
+ */
+
 public class SendWordUseCase extends BaseUseCase {
 
     public SendWordUseCase(PalindromeRepository repository) {

@@ -1,6 +1,6 @@
 package com.masharo.tandemTestTasks.game.storage;
 
-import com.masharo.tandemTestTasks.game.DB;
+import com.masharo.tandemTestTasks.game.data.DB;
 import com.masharo.tandemTestTasks.game.model.AuthParam;
 import com.masharo.tandemTestTasks.game.model.RegistrationParam;
 import com.masharo.tandemTestTasks.game.model.User;
