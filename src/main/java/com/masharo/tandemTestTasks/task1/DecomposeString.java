@@ -1,11 +1,13 @@
 package com.masharo.tandemTestTasks.task1;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.masharo.tandemTestTasks.task1.Task1Impl.compareString;
+import static com.masharo.tandemTestTasks.task1.Task1Impl.compareStringAndInt;
 
 public class DecomposeString implements Comparable<DecomposeString> {
 
@@ -28,7 +30,10 @@ public class DecomposeString implements Comparable<DecomposeString> {
 
         if (matcher.find()) {
             result.add(matcher.group(0));
-            firstItemIsInt = Objects.nonNull(matcher.group(1)); //Проверяем что 1 элемент входит в группу интов
+            //Проверяем что 1 элемент входит в группу интов
+            //чтобы в будующем не использовать parseInt или что то подбное
+            //на каждой группе
+            firstItemIsInt = Objects.nonNull(matcher.group(1));
         }
 
         while (matcher.find()) {
@@ -53,49 +58,6 @@ public class DecomposeString implements Comparable<DecomposeString> {
                     o.getSubstrings().iterator()
             );
         }
-    }
-
-    private int compareStringAndInt(
-            Iterator<String> iteratorLeft,
-            Iterator<String> iteratorRight,
-            boolean firstItemInt
-    ) {
-        while (iteratorLeft.hasNext() && iteratorRight.hasNext()) {
-            if (firstItemInt) { //Сравниваем числа
-
-                int resultCompareInt = Integer.compare(
-                        Integer.parseInt(iteratorLeft.next()),
-                        Integer.parseInt(iteratorRight.next())
-                );
-
-                if (resultCompareInt != 0) {
-                    return resultCompareInt;
-                }
-            } else { //Сравниваем строки
-                int resultCompareString = iteratorLeft.next().compareTo(iteratorRight.next());
-                if (resultCompareString != 0) {
-                    return resultCompareString;
-                }
-            }
-
-            firstItemInt = !firstItemInt;//меняем способ сравнения, поскольку числа и строки чередуются по заданию
-        }
-
-        return 0; // получается равны хотя быть такого не может
-    }
-
-    private int compareString(
-            Iterator<String> iteratorLeft,
-            Iterator<String> iteratorRight
-    ) {
-        while (iteratorLeft.hasNext() && iteratorRight.hasNext()) {
-            int resultCompareString = iteratorLeft.next().compareTo(iteratorRight.next());
-            if (resultCompareString != 0) {
-                return resultCompareString;
-            }
-        }
-
-        return 0;
     }
 
     public Iterable<String> getSubstrings() {

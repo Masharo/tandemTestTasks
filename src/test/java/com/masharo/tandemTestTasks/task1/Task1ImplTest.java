@@ -1,5 +1,7 @@
 package com.masharo.tandemTestTasks.task1;
 
+import com.masharo.tandemTestTasks.task1.exception.ColumnIndexLessThanZeroException;
+import com.masharo.tandemTestTasks.task1.exception.OutRangeIndexColumnException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -62,34 +64,6 @@ class Task1ImplTest {
 
         IStringRowsListSorter task1 = Task1Impl.getInstance();
         task1.sort(expected, 2);
-
-        Assertions.assertArrayEquals(expected.get(0), actual.get(0));
-        Assertions.assertArrayEquals(expected.get(1), actual.get(1));
-        Assertions.assertArrayEquals(expected.get(2), actual.get(2));
-        Assertions.assertArrayEquals(expected.get(3), actual.get(3));
-        Assertions.assertArrayEquals(expected.get(4), actual.get(4));
-    }
-
-    @Test
-    void sortTwoColumnNew() {
-        List<String[]> expected = new ArrayList<>() {{
-            add(row0);
-            add(row1);
-            add(row2);
-            add(row3);
-            add(row4);
-        }};
-
-        List<String[]> actual = new ArrayList<>() {{
-            add(row2);
-            add(row0);
-            add(row1);
-            add(row4);
-            add(row3);
-        }};
-
-//        IStringRowsListSorter task1 = Task1Impl.getInstance();
-        expected.sort(new RowsComparator(2, new StringComparator()));
 
         Assertions.assertArrayEquals(expected.get(0), actual.get(0));
         Assertions.assertArrayEquals(expected.get(1), actual.get(1));
@@ -266,5 +240,38 @@ class Task1ImplTest {
             Assertions.fail();
         }
 
+    }
+
+    @Test
+    void sortExceptionLessColumn() {
+        List<String[]> expected = new ArrayList<>() {{
+            add(row0);
+        }};
+
+        try {
+            Task1Impl.getInstance().sort(expected, -1);
+            Assertions.fail();
+        } catch (ColumnIndexLessThanZeroException ignored) {
+            //Успех
+        } catch (Exception ex) {
+            Assertions.fail();
+        }
+    }
+
+    @Test
+    void sortExceptionOutOfRangeColumnIndex() {
+        List<String[]> expected = new ArrayList<>() {{
+            add(row0);
+            add(new String[]{"", ""});
+        }};
+
+        try {
+            Task1Impl.getInstance().sort(expected, 2);
+            Assertions.fail();
+        } catch (OutRangeIndexColumnException ignored) {
+            //Успех
+        } catch (Exception ex) {
+            Assertions.fail();
+        }
     }
 }

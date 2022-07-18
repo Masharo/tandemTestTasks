@@ -1,9 +1,11 @@
-package com.masharo.tandemTestTasks.task1;
+package com.masharo.tandemTestTasks.task1.comparator;
+
+import com.masharo.tandemTestTasks.task1.DecomposeString;
 
 import java.util.Comparator;
 import java.util.Objects;
 
-public class StringComparator implements Comparator<String> {
+public class ColumnComparator implements Comparator<String> {
 
     @Override
     public int compare(String stringLeft, String stringRight) {
