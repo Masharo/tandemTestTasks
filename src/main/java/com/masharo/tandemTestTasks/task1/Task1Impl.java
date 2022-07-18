@@ -72,7 +72,7 @@ public class Task1Impl implements IStringRowsListSorter {
      */
     private void sortValidItems(List<Decompose> listSort) {
         listSort.sort((dLeft, dRight) -> {
-            if (dLeft.firstItemIsInt && dRight.firstItemIsInt) { // Совпадают ли позиции интов и строк в срапвниваемых объектах
+            if (dLeft.firstItemIsInt == dRight.firstItemIsInt) { // Совпадают ли позиции интов и строк в срапвниваемых объектах
                 for (int i = 0; i < dLeft.substrings.length; i++) {
                     if ((i % 2 == 0) == dLeft.firstItemIsInt) { // Обрабатываем как Int
                         int dLeftInt = Integer.parseInt(dLeft.substrings[i]);
