@@ -5,6 +5,10 @@ import com.masharo.tandemTestTasks.task1.exception.OutRangeIndexColumnException;
 
 import java.util.Comparator;
 
+/**
+ * RowsComparator занимается сравнением записей: валидирует пришедшие данные и отдает другому компоратору
+ */
+
 public class RowsComparator implements Comparator<String[]> {
 
     private final int indexColumn;

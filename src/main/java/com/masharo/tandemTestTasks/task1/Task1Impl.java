@@ -4,12 +4,8 @@ import com.masharo.tandemTestTasks.task1.comparator.ColumnComparator;
 import com.masharo.tandemTestTasks.task1.comparator.RowsComparator;
 import com.masharo.tandemTestTasks.task1.exception.RowsIsNullException;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * <h1>Задание №1</h1>
@@ -45,57 +41,6 @@ public class Task1Impl implements IStringRowsListSorter {
 
         rows.sort(new RowsComparator(columnIndex, new ColumnComparator()));
 
-    }
-
-    public static int compareStringAndInt(
-            Iterator<String> iteratorLeft,
-            Iterator<String> iteratorRight,
-            boolean firstItemInt
-    ) {
-        while (iteratorLeft.hasNext() && iteratorRight.hasNext()) {
-            if (firstItemInt) { //Сравниваем числа
-
-                int resultCompareInt = Integer.compare(
-                        Integer.parseInt(iteratorLeft.next()),
-                        Integer.parseInt(iteratorRight.next())
-                );
-
-                if (resultCompareInt != 0) {
-                    return resultCompareInt;
-                }
-            } else { //Сравниваем строки
-                int resultCompareString = iteratorLeft.next().compareTo(iteratorRight.next());
-                if (resultCompareString != 0) {
-                    return resultCompareString;
-                }
-            }
-
-            firstItemInt = !firstItemInt;//меняем способ сравнения, поскольку числа и строки чередуются
-        }
-
-        if (iteratorLeft.hasNext() || iteratorRight.hasNext()) {
-            return iteratorLeft.hasNext() ? -1 : 1;
-        }
-
-        return 0;
-    }
-
-    public static int compareString(
-            Iterator<String> iteratorLeft,
-            Iterator<String> iteratorRight
-    ) {
-        while (iteratorLeft.hasNext() && iteratorRight.hasNext()) {
-            int resultCompareString = iteratorLeft.next().compareTo(iteratorRight.next());
-            if (resultCompareString != 0) {
-                return resultCompareString;
-            }
-        }
-
-        if (iteratorLeft.hasNext() || iteratorRight.hasNext()) {
-            return iteratorLeft.hasNext() ? -1 : 1;
-        }
-
-        return 0;
     }
 
 }
